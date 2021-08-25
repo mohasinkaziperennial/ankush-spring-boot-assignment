@@ -9,31 +9,45 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 @Entity
 @Table(name = "books")
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     public long isbn;
     public String name;
     public String isTaken;
     @OneToMany
     public List<HoldRequest> holdRequests;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @OneToMany
     private List<History> history;
     @ElementCollection
-    public Set<String> authors;
+    private List<String> authors;
+
     public Book() {
-    }
-    public Book(long isbn, String name, Set<String> authors, String taken) {
-        this.isbn = isbn;
-        this.name = name;
-        this.authors = authors;
-        this.isTaken = taken;
+        this.authors = new ArrayList<>();
         this.holdRequests = new ArrayList<>();
     }
+
+    public Book(long isbn, String name, String taken, List<String> authors) {
+        this.isbn = isbn;
+        this.name = name;
+        this.isTaken = taken;
+        this.authors = authors;
+        this.holdRequests = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Book setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -49,6 +63,7 @@ public class Book {
     public List<HoldRequest> getHoldRequests() {
         return holdRequests;
     }
+
     public void setHoldRequests(ArrayList<HoldRequest> holdRequests) {
         this.holdRequests = holdRequests;
 
@@ -85,11 +100,11 @@ public class Book {
         isTaken = taken;
     }
 
-    public Set<String> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<String> authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
 
     }
@@ -104,5 +119,11 @@ public class Book {
 
     }
 
+    public void addHoldRequest(HoldRequest holdRequest) {
+        holdRequests.add(holdRequest);
+    }
+    public  void removeHoldRequest(HoldRequest holdRequest){
+        holdRequests.remove(holdRequest);
+    }
 
 }

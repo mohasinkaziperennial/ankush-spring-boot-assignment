@@ -1,11 +1,12 @@
 package com.perennialsys.entity;
+
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
@@ -15,48 +16,56 @@ import java.util.Date;
 public class HoldRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-       private Date requestDate;
     private Long id;
+    @CreatedDate
+    private Date requestDate;
+    @ManyToOne
+    @JoinColumn(name = "borrower_id",nullable = false )
+    private Borrower borrower;
 
     public HoldRequest() {
+
     }
 
-    public HoldRequest(  Date reqDate) {
-             requestDate = reqDate;
-    }
-/*
-    public Borrower getBorrower() {
-        return borrower;
-    }
-
-    public void setBorrower(Borrower borrower) {
+    public HoldRequest(Date requestDate, Long id, Borrower borrower) {
+        this.requestDate = requestDate;
+        this.id = id;
         this.borrower = borrower;
-
-    }*/
-
-   /* public Book getBook() {
-        return book;
-    }*/
-/*
-    public void setBook(Book book) {
-        this.book = book;
-    }*/
+    }
 
     public Date getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public HoldRequest setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
-
+        return this;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public HoldRequest setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public Borrower getBorrower() {
+        return borrower;
+    }
+
+    public HoldRequest setBorrower(Borrower borrower) {
+        this.borrower = borrower;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "HoldRequest{" +
+                "requestDate=" + requestDate +
+                ", id=" + id +
+                ", borrower=" + borrower +
+                '}';
     }
 }

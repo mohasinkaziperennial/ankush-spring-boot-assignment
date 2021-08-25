@@ -2,22 +2,27 @@ package com.perennialsys.service;
 
 import com.perennialsys.entity.Book;
 import com.perennialsys.entity.Borrower;
-import com.perennialsys.entity.History;
 
 import java.util.List;
 
 public interface BookService {
     public Book addBook(Book book);
+    public List<Book> getAllBook();
 
-    String issueBook(Borrower borrower, Book book);
+    public String deleteBook(int id);
 
-    void returnBook(Borrower borrower, History history);
+    String issueBook(Borrower borrower);
 
-  /*  void serviceHoldRequest(HoldRequest hr, Book b);
-*/
-    List<Book> searchByName(String bookName);
+    void returnBook(Long borrower);
 
-    void placeBookOnHold(Book book);
+    /*  void serviceHoldRequest(HoldRequest hr, Book b);
+     */
+    // List<Book> searchByName(String bookName);
+    Book searchByName2(String bookName);
+
+    Book placeBookOnHold(String bookName);
 
     List<Book> getBookDetails();
+
+    /* Optional<Object> findById(int id);*/
 }

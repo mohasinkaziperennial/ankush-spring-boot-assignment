@@ -1,106 +1,98 @@
 package com.perennialsys.entity;
-import javax.persistence.ElementCollection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Table(name = "borrower")
 public class Borrower {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
-        static int borrowerId;
-        private String name;
-        private int contactNo;
-        @ManyToMany
-        List<History> borrowedBooks;
-        @OneToOne
-        private Book book;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private int contactNo;
 
-        public int getId() {
-                return id;
-        }
+    @OneToOne
+    private Book book;
+    @ManyToMany
+    List<History> borrowedBooks;
 
-        public Borrower setId(int id) {
-                this.id = id;
-                return this;
-        }
+    public Borrower() {
+        borrowedBooks = new ArrayList<>();
+    }
 
-        public static int getBorrowerId() {
-                return borrowerId;
-        }
 
-        public static void setBorrowerId(int borrowerId) {
-                Borrower.borrowerId = borrowerId;
-        }
 
-        public String getName() {
-                return name;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public Borrower setName(String name) {
-                this.name = name;
-                return this;
-        }
+    public Borrower setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
-        public int getContactNo() {
-                return contactNo;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public Borrower setContactNo(int contactNo) {
-                this.contactNo = contactNo;
-                return this;
-        }
+    public Borrower setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-        public List<History> getBorrowedBooks() {
-                return borrowedBooks;
-        }
+    public int getContactNo() {
+        return contactNo;
+    }
 
-        public Borrower setBorrowedBooks(List<History> borrowedBooks) {
-                this.borrowedBooks = borrowedBooks;
-                return this;
-        }
+    public Borrower setContactNo(int contactNo) {
+        this.contactNo = contactNo;
+        return this;
+    }
 
-        public Book getBook() {
-                return book;
-        }
 
-        public Borrower setBook(Book book) {
-                this.book = book;
-                return this;
-        }
+    public List<History> getBorrowedBooks() {
+        return borrowedBooks;
+    }
 
-        @Override
-        public String toString() {
-                return "Borrower{" +
-                        "id=" + id +
-                        ", name='" + name + '\'' +
-                        ", contactNo=" + contactNo +
-                        ", borrowedBooks=" + borrowedBooks +
-                        '}';
-        }
+    public Borrower setBorrowedBooks(List<History> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+        return this;
+    }
 
-        public Borrower(int i, String name, int i1) {
-                borrowerId++;
-        }
 
-        public Borrower() {
-borrowedBooks=new ArrayList<>();
-        }
-        public void addBorrowedBook(History history)
-        {
-                borrowedBooks.add(history);
-        }
 
-        public void removeBorrowedBook(History history)
-        {
-                borrowedBooks.remove(history);
-        }
+public Book getBook() {
+    return book;
+}
+
+    public Borrower setBook(Book book) {
+        this.book = book;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Borrower{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contactNo=" + contactNo +
+                ", borrowedBooks=" + borrowedBooks +
+                '}';
+    }
+
+    public void addBorrowedBook(History history) {
+        borrowedBooks.add(history);
+    }
+
+    public void removeBorrowedBook(History history) {
+        borrowedBooks.remove(history);
+    }
 }
