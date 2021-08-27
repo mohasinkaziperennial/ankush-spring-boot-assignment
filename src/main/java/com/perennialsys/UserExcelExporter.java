@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class UserExcelExporter {
-    private XSSFWorkbook workbook;
+    private final XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<Book> listUsers;
+    private final List<Book> listUsers;
 
     public UserExcelExporter(List<Book> listUsers) {
         this.listUsers = listUsers;

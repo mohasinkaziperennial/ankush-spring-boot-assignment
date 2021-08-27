@@ -14,7 +14,7 @@ public class BookStore {
     private static BookStore obj;
     public int hold_request_expiry;
     List<Book> listOfBooks;
-    private List<History> histories;
+    private final List<History> histories;
 
     private BookStore(){
         listOfBooks= new ArrayList<>();

@@ -1,8 +1,8 @@
 package com.perennialsys.entity;
 
 public class Owner {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public Owner(int id, String name) {
         this.id = id;

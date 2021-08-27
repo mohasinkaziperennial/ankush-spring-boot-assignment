@@ -19,18 +19,24 @@ public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private Date issueDate;
+    private Long id;
+    private LocalDateTime issueDate;
     private LocalDateTime returnDate;
     @ManyToMany(mappedBy = "history")
-    private List<Book> book;
+    private final List<Book> book;
 
     public History() {
         book = new ArrayList<>();
     }
 
+    public History(Long id, LocalDateTime issueDate, LocalDateTime returnDate, List<Book> book) {
+        this.id = id;
+        this.issueDate = issueDate;
+        this.returnDate = returnDate;
+        this.book = book;
+    }
 
-    public Date getIsuueDate() {
+    public LocalDateTime getIsuueDate() {
         return issueDate;
     }
 
@@ -50,12 +56,12 @@ public class History {
 
     }
 
-    @Id
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

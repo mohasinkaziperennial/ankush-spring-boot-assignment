@@ -1,9 +1,5 @@
 package com.perennialsys.controller;
-
 import com.perennialsys.entity.Book;
-import com.perennialsys.entity.Borrower;
-import com.perennialsys.entity.History;
-import com.perennialsys.entity.HoldRequest;
 import com.perennialsys.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

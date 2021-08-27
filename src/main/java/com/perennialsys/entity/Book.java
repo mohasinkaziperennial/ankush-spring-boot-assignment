@@ -1,5 +1,6 @@
 package com.perennialsys.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,22 +11,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "books")
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     public long isbn;
     public String name;
     public String isTaken;
     @OneToMany
     public List<HoldRequest> holdRequests;
-    @ManyToMany  @JoinTable(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
             name = "book_history",
             joinColumns = @JoinColumn(name = "history_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
@@ -42,9 +42,10 @@ public class Book {
         this.history = history;
         this.authors = authors;
     }
-public Book(){
 
-}
+    public Book() {
+
+    }
 
     public int getId() {
         return id;
@@ -122,7 +123,8 @@ public Book(){
     public void addHoldRequest(HoldRequest holdRequest) {
         holdRequests.add(holdRequest);
     }
-    public  void removeHoldRequest(HoldRequest holdRequest){
+
+    public void removeHoldRequest(HoldRequest holdRequest) {
         holdRequests.remove(holdRequest);
     }
 

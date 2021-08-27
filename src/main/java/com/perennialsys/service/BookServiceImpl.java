@@ -9,6 +9,7 @@ import com.perennialsys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -53,17 +54,15 @@ public class BookServiceImpl implements BookService {
         String bookName = book.getName();
         Book boookResult = bookRepository.findByName(bookName);
         borrower.setBook(boookResult);
-
         boookResult.setIsTaken("true");
-
         userRepository.save(borrower);
-        book.setIsTaken("true");
         History history = new History();
-        history.addBook(book);
+        history.addBook(boookResult);
         history.setIsuueDate(new Date());
+        boookResult.getHistory().add(history);
+        bookRepository.save(boookResult);
         historyService.save(history);
 
-        bookRepository.save(book);
         return "success";
     }
 

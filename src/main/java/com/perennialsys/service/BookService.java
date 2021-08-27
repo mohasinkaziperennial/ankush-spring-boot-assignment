@@ -6,10 +6,10 @@ import com.perennialsys.entity.Borrower;
 import java.util.List;
 
 public interface BookService {
-    public Book addBook(Book book);
-    public List<Book> getAllBook();
+    Book addBook(Book book);
+    List<Book> getAllBook();
 
-    public String deleteBook(int id);
+    String deleteBook(int id);
 
     String issueBook(Book book);
 
