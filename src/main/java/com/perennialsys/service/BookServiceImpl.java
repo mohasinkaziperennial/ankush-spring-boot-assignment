@@ -9,6 +9,7 @@ import com.perennialsys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,7 +18,6 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private BorrowerService borrowerService;
     @Autowired
@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
         long isbn = book.hashCode();
         System.out.println(isbn + "is here");
         book.setIsbn(isbn);
-        book.setTaken("false");
+        book.setIsTaken("false");
         Book savedBook = bookRepository.save(book);
         return savedBook;
     }
@@ -48,32 +48,30 @@ public class BookServiceImpl implements BookService {
         return "success";
     }
 
-    public String issueBook(Borrower borrower) {
-        Book book = new Book();
-        book.setName("wings");
+    public String issueBook(Book book) {
+        Borrower borrower = new Borrower();
         String bookName = book.getName();
-
         Book boookResult = bookRepository.findByName(bookName);
         borrower.setBook(boookResult);
 
-        boookResult.setTaken("true");
+        boookResult.setIsTaken("true");
 
         userRepository.save(borrower);
-        book.setTaken("true");
+        book.setIsTaken("true");
         History history = new History();
         history.addBook(book);
+        history.setIsuueDate(new Date());
         historyService.save(history);
+
         bookRepository.save(book);
         return "success";
     }
 
 
-
-
     public void returnBook(Long borrowerId) {
         Borrower returnFromBorrower = borrowerService.findById(borrowerId);
         Book returnBook = returnFromBorrower.getBook();
-        returnBook.setTaken("false");
+        returnBook.setIsTaken("false");
         HoldRequest holdRequest = new HoldRequest();
         returnBook.removeHoldRequest(holdRequest);
 

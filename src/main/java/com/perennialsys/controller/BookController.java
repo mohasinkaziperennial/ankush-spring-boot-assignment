@@ -6,12 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,7 +28,7 @@ public class BookController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public long addBook(@RequestBody Book book) {
-        book.setTaken("false");
+        book.setIsTaken("false");
         return bookService.addBook(book).getIsbn();
     }
 
@@ -54,10 +52,10 @@ public class BookController {
 
 
     @GetMapping("/search/{bookName}")
-    public String searchForBook(@PathVariable("bookName") String bookName) {
-        Book bookrec = (Book) bookService.searchByName2(bookName);
-        System.out.println("bookrecordishere" + bookrec);
-        return "success";
+    public Book searchForBook(@PathVariable("bookName") String bookName) {
+        bookService.searchByName2(bookName);
+
+        return bookService.searchByName2(bookName);
     }
 
 }

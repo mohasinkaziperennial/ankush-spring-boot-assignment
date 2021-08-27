@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -13,31 +16,35 @@ import java.util.List;
 @Entity
 @Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     public long isbn;
     public String name;
     public String isTaken;
     @OneToMany
     public List<HoldRequest> holdRequests;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @OneToMany
+    @ManyToMany  @JoinTable(
+            name = "book_history",
+            joinColumns = @JoinColumn(name = "history_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<History> history;
     @ElementCollection
     private List<String> authors;
 
-    public Book() {
-        this.authors = new ArrayList<>();
-        this.holdRequests = new ArrayList<>();
-    }
-
-    public Book(long isbn, String name, String taken, List<String> authors) {
+    public Book(int id, long isbn, String name, String isTaken, List<HoldRequest> holdRequests, List<History> history, List<String> authors) {
+        this.id = id;
         this.isbn = isbn;
         this.name = name;
-        this.isTaken = taken;
+        this.isTaken = isTaken;
+        this.holdRequests = holdRequests;
+        this.history = history;
         this.authors = authors;
-        this.holdRequests = new ArrayList<>();
     }
+public Book(){
+
+}
 
     public int getId() {
         return id;
@@ -48,65 +55,58 @@ public class Book {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "name='" + name + '\'' +
-                ", isTaken=" + isTaken +
-                ", holdRequests=" + holdRequests +
-                ", isbn=" + isbn +
-                ", authors=" + authors +
-
-                '}';
-    }
-
-    public List<HoldRequest> getHoldRequests() {
-        return holdRequests;
-    }
-
-    public void setHoldRequests(ArrayList<HoldRequest> holdRequests) {
-        this.holdRequests = holdRequests;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
     public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public Book setIsbn(long isbn) {
         this.isbn = isbn;
-
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Book setName(String name) {
         this.name = name;
-
+        return this;
     }
 
-    public String isTaken(String b) {
+    public String getIsTaken() {
         return isTaken;
     }
 
-    public void setTaken(String taken) {
-        isTaken = taken;
+    public Book setIsTaken(String isTaken) {
+        this.isTaken = isTaken;
+        return this;
+    }
+
+    public List<HoldRequest> getHoldRequests() {
+        return holdRequests;
+    }
+
+    public Book setHoldRequests(List<HoldRequest> holdRequests) {
+        this.holdRequests = holdRequests;
+        return this;
+    }
+
+    public List<History> getHistory() {
+        return history;
+    }
+
+    public Book setHistory(List<History> history) {
+        this.history = history;
+        return this;
     }
 
     public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public Book setAuthors(List<String> authors) {
         this.authors = authors;
-
+        return this;
     }
 
     public void addNewBook(Book book) {

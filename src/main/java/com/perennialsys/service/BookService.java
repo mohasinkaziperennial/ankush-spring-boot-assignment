@@ -11,7 +11,7 @@ public interface BookService {
 
     public String deleteBook(int id);
 
-    String issueBook(Borrower borrower);
+    String issueBook(Book book);
 
     void returnBook(Long borrower);
 

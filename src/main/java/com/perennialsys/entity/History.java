@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -14,20 +16,14 @@ import java.util.List;
 @Entity
 @Table(name = "history")
 public class History {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private Date issueDate;
     private LocalDateTime returnDate;
-    @ManyToMany(mappedBy = "history_id")
+    @ManyToMany(mappedBy = "history")
     private List<Book> book;
-
-
-
-    public History(Date issueDate, LocalDateTime returnDate) {
-              this.issueDate = issueDate;
-        this.returnDate = returnDate;
-    }
 
     public History() {
         book = new ArrayList<>();
@@ -38,7 +34,7 @@ public class History {
         return issueDate;
     }
 
-    public void setIsuueDate(LocalDateTime issueDate) {
+    public void setIsuueDate(Date issueDate) {
         issueDate = issueDate;
     }
 
@@ -55,11 +51,11 @@ public class History {
     }
 
     @Id
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -72,6 +68,6 @@ public class History {
     */
     public void addBook(Book books) {
 
-       book.add(books);
+        book.add(books);
     }
 }

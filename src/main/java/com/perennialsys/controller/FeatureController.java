@@ -24,9 +24,8 @@ public class FeatureController {
     BookService bookService;
 
     @PostMapping("/issue")
-    public ResponseEntity<String> issueBook(@RequestBody Borrower borrower) {
-
-        String isSaved = bookService.issueBook(borrower);
+    public ResponseEntity<String> issueBook(@RequestBody Book book) {
+        String isSaved = bookService.issueBook(book);
         return new ResponseEntity<>(isSaved, HttpStatus.CREATED);
 
     }
@@ -39,10 +38,7 @@ public class FeatureController {
 
     @PostMapping("/hold/{bookName}")
     public String placeBookOnHold(@PathVariable("bookName") String bookName) {
-
        Book bookHold= bookService.placeBookOnHold(bookName);
-
-
         return "success";
     }
 
