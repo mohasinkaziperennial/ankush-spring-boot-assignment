@@ -5,10 +5,16 @@ import com.perennialsys.repository.HoldRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class will implements method related to book hold request
+ *
+ * @author ankush katkar
+ */
 @Service
-public class HoldRequestServiceImpl implements HoldRequestService{
+public class HoldRequestServiceImpl implements HoldRequestService {
     @Autowired
     private HoldRequestRepository holdRequestRepository;
+
     @Override
     public HoldRequest save(HoldRequest holdRequest) {
 

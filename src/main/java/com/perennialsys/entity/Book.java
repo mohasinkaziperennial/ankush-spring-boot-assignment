@@ -13,6 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * Book class entity
+ *
+ * @Author ankush katkar
+ */
 @Entity
 @Table(name = "books")
 public class Book {

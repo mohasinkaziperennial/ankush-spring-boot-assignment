@@ -10,24 +10,27 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is  Borrower user of application
+ *
+ * @Author ankush katkar
+ */
 @Entity
 @Table(name = "borrower")
 public class Borrower {
+    @ManyToMany
+    List<History> borrowedBooks;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int contactNo;
-
     @OneToOne
     private Book book;
-    @ManyToMany
-    List<History> borrowedBooks;
 
     public Borrower() {
         borrowedBooks = new ArrayList<>();
     }
-
 
 
     public Long getId() {
@@ -68,10 +71,9 @@ public class Borrower {
     }
 
 
-
-public Book getBook() {
-    return book;
-}
+    public Book getBook() {
+        return book;
+    }
 
     public Borrower setBook(Book book) {
         this.book = book;

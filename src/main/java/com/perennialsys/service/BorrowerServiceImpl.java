@@ -5,10 +5,16 @@ import com.perennialsys.repository.BorrowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class will implements all service realted to borrower
+ * @Author
+ * ankush katkar
+ */
 @Service
 public class BorrowerServiceImpl implements BorrowerService {
     @Autowired
     private BorrowerRepository borrowerRepository;
+
     @Override
     public Borrower save(Borrower borrower) {
         return borrowerRepository.save(borrower);

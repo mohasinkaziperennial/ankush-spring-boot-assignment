@@ -13,6 +13,12 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is book service implemetation class
+ * will implement all related method to book
+ * @author
+ * ankush katkar
+ */
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
@@ -73,7 +79,6 @@ public class BookServiceImpl implements BookService {
         returnBook.setIsTaken("false");
         HoldRequest holdRequest = new HoldRequest();
         returnBook.removeHoldRequest(holdRequest);
-
         holdRequestService.save(holdRequest);
         bookRepository.save(returnBook);
     }

@@ -1,10 +1,8 @@
 package com.perennialsys;
 
 import com.perennialsys.entity.Book;
-import com.perennialsys.entity.HoldRequest;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,10 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class will track about exportin data to excel file
+ *
+ * @author ankush katkar
+ */
 public class UserExcelExporter {
     private final XSSFWorkbook workbook;
-    private XSSFSheet sheet;
     private final List<Book> listUsers;
+    private XSSFSheet sheet;
 
     public UserExcelExporter(List<Book> listUsers) {
         this.listUsers = listUsers;
@@ -52,7 +55,7 @@ public class UserExcelExporter {
             cell.setCellValue((Integer) value);
         } else if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
-        }else {
+        } else {
             cell.setCellValue((String) value);
         }
         cell.setCellStyle(style);
@@ -70,11 +73,11 @@ public class UserExcelExporter {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
 
-          //  createCell(row, columnCount++, book.getIsbn(), style);
+            //  createCell(row, columnCount++, book.getIsbn(), style);
             createCell(row, columnCount++, book.getName(), style);
-          //  createCell(row, columnCount++, book.getAuthors(), style);
-           // createCell(row, columnCount++, book.getHoldRequests(), style);
-           // createCell(row, columnCount++, book.getHoldRequests(), style);
+            //  createCell(row, columnCount++, book.getAuthors(), style);
+            // createCell(row, columnCount++, book.getHoldRequests(), style);
+            // createCell(row, columnCount++, book.getHoldRequests(), style);
 
 
         }
@@ -86,8 +89,7 @@ public class UserExcelExporter {
 
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-
-               outputStream.close();
+        outputStream.close();
 
     }
 

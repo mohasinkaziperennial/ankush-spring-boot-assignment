@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * This is Book related endpoints
+ *
+ * @author ankush katkar
+ */
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
@@ -50,9 +55,9 @@ public class BookController {
     }*/
 
 
-
     @GetMapping("/search/{bookName}")
     public Book searchForBook(@PathVariable("bookName") String bookName) {
+        LOGGER.info("Entering >> searchForBook()");
         bookService.searchByName2(bookName);
 
         return bookService.searchByName2(bookName);

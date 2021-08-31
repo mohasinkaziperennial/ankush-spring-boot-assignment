@@ -1,21 +1,29 @@
 package com.perennialsys.controller;
+
 import com.perennialsys.UserExcelExporter;
 import com.perennialsys.entity.Book;
 import com.perennialsys.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * This endpoints for excel file processing
+ * it will export user data to excel file
+ */
 @RestController
 public class UserController {
 
     @Autowired
-    BookService bookService;
+    private  BookService bookService;
+
     @GetMapping("/users/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");

@@ -11,6 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * This is hold request class will track record about hold request on book
+ *
+ * @Author ankush katkar
+ */
 @Entity
 @Table(name = "hold_request")
 public class HoldRequest {
@@ -20,7 +25,7 @@ public class HoldRequest {
     @CreatedDate
     private Date requestDate;
     @ManyToOne
-    @JoinColumn(name = "borrower_id",nullable = false )
+    @JoinColumn(name = "borrower_id", nullable = false)
     private Borrower borrower;
 
     public HoldRequest() {

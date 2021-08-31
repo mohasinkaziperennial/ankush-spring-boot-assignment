@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -13,17 +11,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is Histroy entity class will track record about history
+ *
+ * @Author ankush katkar
+ */
 @Entity
 @Table(name = "history")
 public class History {
 
+    @ManyToMany(mappedBy = "history")
+    private final List<Book> book;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime issueDate;
     private LocalDateTime returnDate;
-    @ManyToMany(mappedBy = "history")
-    private final List<Book> book;
 
     public History() {
         book = new ArrayList<>();
